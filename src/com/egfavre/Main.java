@@ -2,6 +2,7 @@ package com.egfavre;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.concurrent.Callable;
@@ -14,23 +15,45 @@ public class Main {
         //save a file of countries that start with that letter
         //Optional Tasks
 
-        String firstLetter;
+        String[] countries = new String[241];
 
-        HashMap<String, String> allCountries = new HashMap<>();
+        HashMap<String, ArrayList> allCountries = new HashMap<>();
+
 
         File f = new File("countries.txt");
         Scanner fileScanner = new Scanner(f);
+        int i = 0;
         while (fileScanner.hasNextLine()) {
             String line = fileScanner.nextLine();
             String[] columns = line.split("\\|");
             Country country = new Country(columns[0], columns[1]);
-            firstLetter = String.valueOf(country.name.charAt(0));
-            allCountries.put(firstLetter, country.name);
+            countries[i] = country.name;
+            i++;
         }
 
-       Scanner consoleScanner = new Scanner(System.in);
+        for (String name : countries) {
+            String thisName = name;
+            char firstLetter = name.charAt(0);
+            String firstLetterStr = String.valueOf(firstLetter);
+            allCountries.put(firstLetterStr, new ArrayList<>());
+        }
 
-        public void getLetter() {
+        for (String name : countries) {
+            String thisName = name;
+            char firstLetter = name.charAt(0);
+            String firstLetterStr = String.valueOf(firstLetter);
+            allCountries.get(firstLetterStr).add(name);
+        }
+
+        System.out.println(allCountries);
+
+
+       /*Scanner consoleScanner = new Scanner(System.in);
+
+        //getLetter();
+        }
+
+        public static String getLetter() {
             Scanner consoleScanner = new Scanner(System.in);
             System.out.println("Please pick a letter");
             String answer = consoleScanner.nextLine();
@@ -38,9 +61,9 @@ public class Main {
             if (charAnswer.length != 1 || !Character.isAlphabetic(charAnswer[0])) {
             System.out.println("That is not a single letter.");
                 getLetter();
-
-        }
+            }
+            return answer;*/
         }
 
     }
-}
+
