@@ -30,21 +30,7 @@ public class Main {
             i++;
         }
 
-        for(String name : countries) {
-            String thisName = name;
-            char firstLetter = name.charAt(0);
-            String firstLetterStr = String.valueOf(firstLetter);
-            allCountries.put(firstLetterStr, new ArrayList<>());
-        }
-
-
-        for (String name : countries) {
-            String thisName = name;
-            char firstLetter = name.charAt(0);
-            String firstLetterStr = String.valueOf(firstLetter);
-            allCountries.get(firstLetterStr).add(name);
-        }
-
+        createHashMap(countries, allCountries);
         getLetter();
 
         ArrayList<String> choosenCountryList = allCountries.get(answer);
@@ -54,18 +40,34 @@ public class Main {
 
     }
 
-        public static String getLetter() {
-            Scanner consoleScanner = new Scanner(System.in);
-            System.out.println("Please pick a letter");
-            answer = consoleScanner.nextLine();
-            char[] charAnswer = answer.toCharArray();
-            if (charAnswer.length != 1 || !Character.isAlphabetic(charAnswer[0])) {
-            System.out.println("That is not a single letter.");
-                getLetter();
-            }
-            return answer;
-
+    public static String getLetter() {
+        Scanner consoleScanner = new Scanner(System.in);
+        System.out.println("Please pick a letter");
+        answer = consoleScanner.nextLine();
+        char[] charAnswer = answer.toCharArray();
+        if (charAnswer.length != 1 || !Character.isAlphabetic(charAnswer[0])) {
+        System.out.println("That is not a single letter.");
+            getLetter();
         }
+        return answer;
+
+    }
+
+    public static HashMap createHashMap (String[] countries, HashMap<String, ArrayList> allCountries) {
+        for (String name : countries) {
+            String thisName = name;
+            char firstLetter = name.charAt(0);
+            String firstLetterStr = String.valueOf(firstLetter);
+            allCountries.put(firstLetterStr, new ArrayList<>());
+        }
+        for (String name : countries) {
+            String thisName = name;
+            char firstLetter = name.charAt(0);
+            String firstLetterStr = String.valueOf(firstLetter);
+            allCountries.get(firstLetterStr).add(name);
+        }
+        return allCountries;
+    }
 
     public static void save(String filename, ArrayList<String> choosenCountryList) {
         JsonSerializer serializer = new JsonSerializer();
