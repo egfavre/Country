@@ -15,18 +15,12 @@ public class Main {
     public static String answer;
 
     public static void main(String[] args) throws FileNotFoundException {
-
-        //ask user to pick a letter; throw exception if they don't pick a valid entry
-        //save a file of countries that start with that letter
-        //Optional Tasks
-
+        File f = new File("countries.txt");
+        Scanner fileScanner = new Scanner(f);
         String[] countries = new String[241];
-
         HashMap<String, ArrayList> allCountries = new HashMap<>();
 
 
-        File f = new File("countries.txt");
-        Scanner fileScanner = new Scanner(f);
         int i = 0;
         while (fileScanner.hasNextLine()) {
             String line = fileScanner.nextLine();
@@ -36,12 +30,13 @@ public class Main {
             i++;
         }
 
-        for (String name : countries) {
+        for(String name : countries) {
             String thisName = name;
             char firstLetter = name.charAt(0);
             String firstLetterStr = String.valueOf(firstLetter);
             allCountries.put(firstLetterStr, new ArrayList<>());
         }
+
 
         for (String name : countries) {
             String thisName = name;
@@ -50,8 +45,6 @@ public class Main {
             allCountries.get(firstLetterStr).add(name);
         }
 
-        Scanner consoleScanner = new Scanner(System.in);
-
         getLetter();
 
         ArrayList<String> choosenCountryList = allCountries.get(answer);
@@ -59,7 +52,7 @@ public class Main {
 
         save(filename, choosenCountryList);
 
-        }
+    }
 
         public static String getLetter() {
             Scanner consoleScanner = new Scanner(System.in);
@@ -87,4 +80,3 @@ public class Main {
         }
     }
 }
-
